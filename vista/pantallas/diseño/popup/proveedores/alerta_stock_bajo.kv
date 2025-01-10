@@ -1,0 +1,58 @@
+<StockBajoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 5
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Label:
+                text: "[b]Alerta Sock bajo contacta al proveedor[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+                
+        BoxLayout:
+            orientation: 'horizontal'  # Dividir en dos columnas
+            size_hint: 1, 1
+            spacing: 5
+            padding: 10
+
+            # Sección izquierda: Productos
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.7  # 70% del ancho total
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1  # Blanco
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                ScrollView:
+                    size_hint_y: 1
+                    padding: 15
+                    GridLayout:
+                        id: productos_grid
+                        cols: 1
+                        size_hint_y: None  # Para controlar la altura
+                        height: self.minimum_height  # Ajusta la altura al contenido
+                        size_hint_x: 1
+                        spacing: 10
+                        padding: 10

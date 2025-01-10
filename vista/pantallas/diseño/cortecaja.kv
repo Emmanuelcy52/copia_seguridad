@@ -1,0 +1,412 @@
+<CorteCajaScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 5
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1 , 1 , 1 , 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+            Label:
+                text: "[b]Punto de venta tlapaleria AguiYon[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Label:
+                text: "[b]Corte de caja[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: fecha_hora
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+            #usuario que atiende
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Empleado Activo:"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: usuario
+                    text: ""
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_y': 0.5 }
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            BoxLayout:
+                size_hint_y: 0.8
+                size_hint_x: 0.02
+                pos_hint: {'center_y': 0.5 }
+                canvas.before:
+                    RoundedRectangle:
+                        pos: self.pos 
+                        size: self.size  
+
+            GridLayout:
+                rows: 1  # Una fila
+                spacing: 10  # Espacio entre los botones
+                size_hint_y: 0.7
+                size_hint_x: 1
+                pos_hint: {'center_y': 0.5}
+
+                Button:
+                    text: "Ventas"
+                    on_press: root.redirect_productos()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Inventario"
+                    on_press: root.redirect_Inventario()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Empleados"
+                    on_press: root.redirect_Empleados()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Proveedores"
+                    on_press: root.redirect_Proveedores()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "clientes"
+                    on_press: root.redirect_clientes()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+                
+
+                Button:
+                    text: "Opciones"
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                BoxLayout:
+                    size_hint_y: 0.8
+                    size_hint_x: 0.02
+                    pos_hint: {'center_y': 0.5 }
+                    canvas.before:
+                        RoundedRectangle:
+                            pos: self.pos 
+                            size: self.size 
+
+        BoxLayout:
+            id: contenedor_principal
+            orientation: 'horizontal'  # Dividir en dos columnas
+            size_hint: 1, 1
+            spacing: 5
+            padding: 10
+
+            
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.7  
+                padding: 10
+                canvas.before:
+                    Color:
+                        rgb: 255, 255, 255
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Lista de ventas del dia"
+                    font_size: self.width * 0.025
+                    bold: True
+                    size_hint_y: 0.13
+                    color: 0, 0, 0, 1
+
+                GridLayout:
+                    rows: 1  # Una fila
+                    spacing: 10  # Espacio entre los botones
+                    size_hint_y: 0.1
+                    size_hint_x: 1
+                    pos_hint: {'center_y': 0.5}
+
+                    Label:
+                        text: "Id venta"
+                        bold: True
+                        color: (0, 0, 0, 1)
+                        font_size: self.width * 0.1
+
+                    Label:
+                        text: "total de la venta"
+                        bold: True
+                        color: (0, 0, 0, 1)
+                        font_size: self.width * 0.1
+
+                    Label:
+                        text: "dinero recibido"
+                        bold: True
+                        color: (0, 0, 0, 1)
+                        font_size: self.width * 0.1
+
+                    Label:
+                        text: "Cambio devuelto"
+                        bold: True
+                        color: (0, 0, 0, 1)
+                        font_size: self.width * 0.1
+                    
+                    Label:
+                        text: "total de productos"
+                        bold: True
+                        color: (0, 0, 0, 1)
+                        font_size: self.width * 0.1
+                    
+                    Label:
+                        text:'estatus venta'
+                        bold: True
+                        color:(0,0,0,1)
+                        font_size: self.width * 0.1
+                    
+
+                ScrollView:
+                    size_hint_y: 0.9
+                    GridLayout:
+                        id: Ventas_grid
+                        cols: 6 
+                        size_hint_y: None
+                        row_default_height: '50dp'
+                        height: self.minimum_height
+                        spacing: 2
+                        padding: 2
+
+        BoxLayout:
+            size_hint_y: 0.2
+            size_hint_x: 1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: 0.3
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Saldo Inicial"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.13
+
+                Label:
+                    id: saldo_inicial
+                    text: "0.0"  
+                    color: (0, 0.8, 0, 1) if float(self.text) >= 0 else (0.8, 0, 0, 1)
+                    font_size: self.width * 0.15
+
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: 0.3
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Total ventas"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.13
+
+                Label:
+                    id: total_ventas
+                    text: "0.0"
+                    color: (0, 0.8, 0, 1) if float(self.text) >= 0 else (0.8, 0, 0, 1)
+                    font_size: self.width * 0.15
+
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: 0.3
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Total retiros"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.20
+
+                Label:
+                    id: total_retiros
+                    text: "0.0"  
+                    color: (0.8, 0, 0, 1) if float(self.text) >= 0 else (0.8, 0, 0, 1)
+                    font_size: self.width * 0.22
+
+                Label:
+                    text: "Total Pagos"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.20
+
+                Label:
+                    id: total_pagos
+                    text: "0.0"
+                    color: (0, 0.8, 0, 1) if float(self.text) >= 0 else (0.8, 0, 0, 1)
+                    font_size: self.width * 0.22
+
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: 0.3
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Total En Caja"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.13
+
+                Label:
+                    id: total_ganacia
+                    text: "0.0"  
+                    color: (0, 0.8, 0, 1)
+                    font_size: self.width * 0.15
+
+                # Botón para cerrar caja
+            BoxLayout:
+                size_hint_y: .7
+                size_hint_x: 0.3
+                pos_hint: {'center_y': 0.5}
+
+                Button:
+                    id: boton_corte
+                    text: "Cerrar Caja"
+                    font_size: self.width * 0.1
+                    size_hint_x: .1
+                    size_hint_y: .8
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+                    on_press: root.cerrar_caja()
+                    
+        BoxLayout:
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.06
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 

@@ -1,0 +1,401 @@
+<EditarCientesScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Widget:  # Espaciador superior
+            size_hint_y: None
+            height: 2
+
+        # Encabezado
+        BoxLayout:
+            size_hint_y: 0.2
+            size_hint_x: .8
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Image:
+                source: root.ruta_imagenes + "/register.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                text: "[b]Registrar Nuevo Cliente[/b]"
+                font_size: 32
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Image:
+                source: root.ruta_imagenes + "/register.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+        BoxLayout:     
+            spacing: 5
+            size_hint_y: 1
+            size_hint_x: .8
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                RoundedRectangle:
+                    pos: self.pos  # Posición del BoxLayout
+                    size: self.size  # Tamaño del BoxLayout
+                    radius: [20]
+        
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+                padding: 20
+                size_hint_y: 1
+                size_hint_x: 0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del BoxLayout
+                        size: self.size  # Tamaño del BoxLayout
+                        radius: [20]
+
+                Label:
+                    text: "[b]informacion cliente[/b]"
+                    font_size: self.width * 0.05
+                    markup: True  # Habilitar etiquetas de formato
+                    color: 0, 0, 0, 1
+
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/client-server.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5}
+
+                    TextInput:
+                        id: codigoCliente
+                        hint_text: "Codigo Cliente"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_y": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+                        readonly: True 
+
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/id-card.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5}
+
+                    TextInput:
+                        id: nombreReal
+                        hint_text: "Nombre real"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_y": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+                
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/driver-license.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: clave_lector
+                        hint_text: "Clave de Elector"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/phone-call.png"
+                        size_hint: .5, .9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: telefono
+                        hint_text: "telefono"
+                        input_filter: 'int'
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_x": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+                
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/adress.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: direccion
+                        hint_text: "direccion"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_x": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+                
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/mail.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: correo
+                        hint_text: "Correo Electronico"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_x": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+                padding: 20
+                size_hint_y: 1
+                size_hint_x: 0.5
+                pos_hint: {'center_y': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del BoxLayout
+                        size: self.size  # Tamaño del BoxLayout
+                        radius: [20]
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    size_hint_y: 0.5
+                    size_hint_x: 1
+                    pos_hint: {'center_y': 0.5}
+                    canvas.before:
+                        RoundedRectangle:
+                            pos: self.pos  # Posición del BoxLayout
+                            size: self.size  # Tamaño del BoxLayout
+                            radius: [20]
+
+                    Label:
+                        text: "[b]informacion contacto[/b]"
+                        font_size: self.width * 0.05
+                        markup: True  # Habilitar etiquetas de formato
+                        color: 0, 0, 0, 1
+
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/id-card.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5}
+
+                    TextInput:
+                        id: nombre_refente
+                        hint_text: "Nombre de contacto de emergencia"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {"center_y": 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+                
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/phone-call.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: telefono_refente
+                        hint_text: "Numero de telefono"
+                        multiline: False
+                        input_filter: 'int'
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5}
+                        halign: 'center' 
+                        valign: 'middle' 
+
+                BoxLayout:
+                    size_hint_y: 0.3
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/adress.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    TextInput:
+                        id: direccion_refente
+                        hint_text: "direccion"
+                        multiline: False
+                        font_size: self.width * 0.07
+                        size_hint: 1, 1
+                        pos_hint: {'center_x': 0.5}
+                        halign: 'center' 
+                        valign: 'middle'  
+
+
+
+        # Botón
+
+        BoxLayout:
+            size_hint_y: 0.13
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5 }
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del BoxLayout
+                    size: self.size  # Tamaño del BoxLayout
+                    radius: [20]
+
+            Label:
+                text: "[b]Credito aprovado: [/b]"
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            TextInput:
+                id: credito_aprovado
+                hint_text: "$"
+                multiline: False
+                font_size: self.width * 0.07
+                size_hint: .7, .9
+                input_filter: 'float'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                halign: 'center' 
+                valign: 'middle'
+
+            BoxLayout:
+                size_hint_x:0.1
+
+        BoxLayout:
+            size_hint_y: 0.13
+            size_hint_x: 0.8
+            pos_hint: {'center_x': 0.5 }
+            spacing: 20
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            Button:
+                text: "[b]Guardar[/b]"
+                markup: True
+                size_hint: .5, .7
+                pos_hint: {'center_y': 0.5}
+                on_press: root.editar_cliente()
+                background_normal: ''  
+                background_color: 0, 1, 0.2, 1  
+                color: 0 , 0 , 0 , 1
+
+            Button:
+                text: "[b]Cancelar[/b]"
+                markup: True
+                size_hint: .5, .7
+                pos_hint: {'center_y': 0.5}
+                on_press: app.root.get_screen('clientes').dismiss_popup()
+                background_normal: ''  
+                background_color: 1, 0, 0, 1  
+                color: 0 , 0 , 0 , 1
+
+        # Mensaje final
+        BoxLayout:
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.06
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 

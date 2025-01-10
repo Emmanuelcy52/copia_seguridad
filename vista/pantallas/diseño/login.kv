@@ -1,0 +1,158 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 25
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        Widget:  # Espaciador superior
+            size_hint_y: None
+            height: 20
+
+        # Encabezado
+        BoxLayout:
+            size_hint_y: 0.09
+            size_hint_x: .5
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Image:
+                source: root.ruta_imagenes + "/login.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                text: "[b]Inicio de Sesión[/b]"
+                font_size: 32
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Image:
+                source: root.ruta_imagenes + "/login.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+
+        # Inputs
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 15
+            size_hint_y: 0.2
+            size_hint_x: 0.5
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                RoundedRectangle:
+                    pos: self.pos  # Posición del BoxLayout
+                    size: self.size  # Tamaño del BoxLayout
+                    radius: [20]
+
+            BoxLayout:
+                spacing: 15
+                size_hint_y: .5
+                size_hint_x: 0.7
+                pos_hint: {'center_x': 0.5}
+                    
+
+                Image:
+                    source: root.ruta_imagenes + "/team.png"
+                    size_hint: .2, 0.5
+                    pos_hint: {"center_y": 0.5} 
+
+                TextInput:
+                    id: username
+                    hint_text: "Usuario"
+                    multiline: False
+                    font_size: self.width * 0.1
+                    size_hint: .7, 0.5
+                    pos_hint: {"center_y": 0.5}
+                    halign: 'center' 
+                    valign: 'middle' 
+
+            
+            BoxLayout:
+                spacing: 15
+                size_hint_y: .5
+                size_hint_x: 0.7
+                pos_hint: {'center_x': 0.5}
+
+                Image:
+                    source: root.ruta_imagenes + "/password.png"
+                    size_hint: .2, 0.5
+                    pos_hint: {"center_y": 0.5} 
+
+                TextInput:
+                    id: password
+                    hint_text: "Contraseña"
+                    multiline: False
+                    password: True
+                    font_size: self.width * 0.1
+                    size_hint: .7, 0.5
+                    pos_hint: {'center_y': 0.5}
+                    halign: 'center' 
+                    valign: 'middle' 
+
+            Widget:  # Espaciador superior
+                size_hint_y: None
+                height: 10
+
+
+        # Botón
+        BoxLayout:
+            size_hint_y: 0.08
+            size_hint_x: 0.2
+            pos_hint: {'center_x': 0.5 }
+            spacing: 20
+            canvas.before:
+                Color:
+                    rgba: 0,0.16,0.36,1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+            Button:
+                text: "[b]Iniciar Sesión[/b]"
+                markup: True
+                size_hint: .8, .8
+                pos_hint: {'center_y': 0.5}
+                on_press: root.verify_credentials()
+                background_normal: ''  
+                background_color: 0,0.16,0.36, .2
+                color: 1 , 1 , 1 , 1
+
+        # Mensaje final
+        # Layout para el mensaje de advertencia
+        BoxLayout:
+            size_hint_y: None
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            padding: [10, 5]
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: 1, 1
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.135
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: 1, 1
+                pos_hint: {"center_y": 0.5} 
+

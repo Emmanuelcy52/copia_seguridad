@@ -1,0 +1,247 @@
+<EstadisticasScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 5
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1 , 1 , 1 , 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+            Label:
+                text: "[b]Punto de venta tlapaleria AguiYon[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Label:
+                text: "[b]Corte de caja[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: fecha_hora
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+            #usuario que atiende
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Empleado Activo:"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: usuario
+                    text: ""
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_y': 0.5 }
+            spacing: 10
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            BoxLayout:
+                size_hint_y: 0.8
+                size_hint_x: 0.02
+                pos_hint: {'center_y': 0.5 }
+                canvas.before:
+                    RoundedRectangle:
+                        pos: self.pos 
+                        size: self.size  
+
+            GridLayout:
+                rows: 1  # Una fila
+                spacing: 10  # Espacio entre los botones
+                size_hint_y: 0.7
+                size_hint_x: 1
+                pos_hint: {'center_y': 0.5}
+
+                Button:
+                    text: "Ventas"
+                    on_press: root.redirect_productos()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Inventario"
+                    on_press: root.redirect_Inventario()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    id: empleadosRedig
+                    text: "Empleados"
+                    on_press: root.redirect_Empleados()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Proveedores"
+                    on_press: root.redirect_Proveedores()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "clientes"
+                    on_press: root.redirect_clientes()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+                
+
+                BoxLayout:
+                    size_hint_y: 0.8
+                    size_hint_x: 0.02
+                    pos_hint: {'center_y': 0.5 }
+                    canvas.before:
+                        RoundedRectangle:
+                            pos: self.pos 
+                            size: self.size 
+
+        BoxLayout:
+            id: contenedor_principal
+            orientation: 'horizontal'  # Dividir en dos columnas
+            size_hint: 1, 1
+            spacing: 5
+            padding: 10
+
+            
+            # Productos más vendidos
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+
+                GridLayout:
+                    cols: 3
+                    spacing: 10
+                    size_hint: .9, 0.5
+                    pos_hint: {'center_x': 0.5}
+                    Button:
+                        text: "Exportar Productos"
+                        on_press: root.exportar_productos()
+                        font_size: self.width * 0.05
+                        background_color: 0.3, 0.7, 0.9, 1
+                    Button:
+                        text: "Exportar Ventas"
+                        on_press: root.exportar_ventas()
+                        font_size: self.width * 0.05
+                        background_color: 0.3, 0.7, 0.9, 1
+                    Button:
+                        text: "Cerrar Sesión"
+                        on_press: root.cerrar_sesion()
+                        font_size: self.width * 0.05
+                        background_color: 1, 0.3, 0.3, 1
+                    Button:
+                        text: "Restaurar Copia Productos"
+                        on_press: root.recuperar_productos()
+                        font_size: self.width * 0.05
+                        background_color: 0.3, 1, 0.3, 1
+                    Button:
+                        text: "Exportar Cortes de Caja"
+                        on_press: root.exportar_cortes()
+                        font_size: self.width * 0.05
+                        background_color: 0.3, 0.7, 0.9, 1
+            
+
+                
+        BoxLayout:
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.02
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 

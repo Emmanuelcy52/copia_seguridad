@@ -1,0 +1,302 @@
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 5
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+            Label:
+                text: "[b]Punto de venta tlapaleria AguiYon[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Label:
+                text: "[b]Ventas[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: fecha_hora
+                    text: "Fecha y Hora"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+            #usuario que atiende
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 1
+                size_hint_x:0.5
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1,1,1,1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+                Label:
+                    text: "Atiende:"
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+                Label:
+                    id: usuario
+                    text: ""
+                    color: (0, 0, 0, 1)
+                    font_size: self.width * 0.1
+
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_y': 0.5 }
+            spacing: 5
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Label:
+                text:'Buscar Producto:'
+                font_size: self.width * 0.1
+                size_hint: .2 , .05
+                pos_hint: {'center_y': 0.5}
+                color: 0 , 0 , 0 , 1
+
+            TextInput:
+                id: buscar_producto
+                hint_text: 'Ingresa tu codigo o nombre de producto'
+                multiline: False
+                font_size: self.width * 0.05
+                size_hint: .4, .6
+                pos_hint: {'center_y': 0.5}
+                on_text: root.filtrar_productos(self.text)
+                on_focus: root.comprobar_texto(self,self.focus)
+
+            
+
+            GridLayout:
+                rows: 1  # Una fila
+                spacing: 10  # Espacio entre los botones
+                size_hint_y: 0.7
+                size_hint_x: 1
+                pos_hint: {'center_y': 0.5}
+
+                Button:
+                    text: "Inventario"
+                    on_press: root.redirect_Inventario()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    id: empleadosRedig
+                    text: "Empleados"
+                    on_press: root.redirect_Empleados()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Provedores"
+                    size_hint_y: None
+                    on_press: root.redirect_Proveedores()
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "clientes"
+                    on_press: root.redirect_clientes()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+                
+                Button:
+                    id: corteCajaRedig
+                    text: "Corte de caja"
+                    on_press: root.redirect_Corte_Caja()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Opciones"
+                    on_press: root.redirect_Estadisticas()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "retiar dinero"
+                    on_press: root.redirect_Retirar_dinero()
+                    size_hint_y: None
+                    font_size: self.width * 0.1
+                    size_hint: .05, .4
+                    pos_hint: {'center_y': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+                BoxLayout:
+                    size_hint_y: 0.8
+                    size_hint_x: 0.02
+                    pos_hint: {'center_y': 0.5 }
+                    canvas.before:
+                        RoundedRectangle:
+                            pos: self.pos 
+                            size: self.size 
+
+        BoxLayout:
+            orientation: 'horizontal'  # Dividir en dos columnas
+            size_hint: 1, 1
+            spacing: 5
+            padding: 10
+
+            # Sección izquierda: Productos
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.8 # 70% del ancho total
+                canvas.before:
+                    Color:
+                        rgb: 255, 255, 255
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Productos"
+                    font_size: self.width * 0.04
+                    bold: True
+                    size_hint_y: 0.1
+                    color: 0, 0, 0, 1
+
+                GridLayout:
+                    id: header_labels
+                    rows: 1  # Una fila
+                    spacing: 10  # Espacio entre los botones
+                    size_hint_y: 0.1
+                    size_hint_x: 1
+                    pos_hint: {'center_y': 0.5}
+                
+                ScrollView:
+                    size_hint_y: 0.9
+                    GridLayout:
+                        id: productos_grid
+                        cols: 8
+                        size_hint_y: None
+                        row_default_height: '50dp'
+                        height: self.minimum_height
+                        spacing: 2
+                        padding: 2
+
+
+            # Sección derecha: Resumen de la venta
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.3  # 30% del ancho total
+                canvas.before:
+                    Color:
+                        rgb: 240, 240, 240
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    text: "Resumen de la Venta"
+                    font_size: '25dp'
+                    bold: True
+                    size_hint_y: 0.1
+                    color: 0, 0, 0, 1
+
+                GridLayout:
+                    cols: 2
+                    size_hint_y: 0.6
+                    spacing: 10
+                    padding: 10
+
+                    Label:
+                        text: "Productos:"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+                    Label:
+                        id: total_productos
+                        text: "0"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+
+                    Label:
+                        text: "Descuento:"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+                    Label:
+                        id: descuento
+                        text: "$0.00"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+
+                    Label:
+                        text: "Total a Pagar:"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+                    Label:
+                        id: total_pagar
+                        text: "$0.00"
+                        font_size: '18dp'
+                        color: 0, 0, 0, 1
+
+                Button:
+                    text: "Realizar Pago"
+                    size_hint_y: 0.2
+                    background_color: 0.1, 0.7, 0.1, 1
+                    color: 1, 1, 1, 1
+                    font_size: '20dp'
+                    disabled: not root.button_enabled
+                    on_press: root.show_popup_pago()  # Acción del botón
+

@@ -1,0 +1,550 @@
+<EditarProductosScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 30
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        # Encabezado
+        BoxLayout:
+            size_hint_y: 0.15
+            size_hint_x: .9
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Image:
+                source: root.ruta_imagenes + "/register.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                text: "[b]Editar Producto[/b]"
+                font_size: self.width * 0.1
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+
+            Image:
+                source: root.ruta_imagenes + "/register.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+        # Inputs
+        BoxLayout:
+            size_hint_y: 1
+            size_hint_x:.9
+            pos_hint:{"center_x":0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x:.7
+                pos_hint:{"center_x":0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    padding: 20
+                    size_hint_y: 1
+                    size_hint_x: 1
+                    pos_hint: {'center_x': 0.5}
+                    canvas.before:
+                        RoundedRectangle:
+                            pos: self.pos  # Posición del BoxLayout
+                            size: self.size  # Tamaño del BoxLayout
+                            radius: [20]
+
+                    BoxLayout:
+                        size_hint_x: .9
+                        spacing: 15
+                        pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                        Image:
+                            source: root.ruta_imagenes + "/new-product.png"
+                            size_hint: .5, 0.9
+                            pos_hint: {"center_y": 0.5}
+
+                        BoxLayout:
+                            orientation: 'vertical'
+
+                            Label:
+                                text: "[b]Nombre del producto[/b]"
+                                size_hint: 1, .2
+                                font_size: self.width * 0.1
+                                markup: True  # Habilitar etiquetas de formato
+                                color: 0, 0, 0, 1
+
+                            TextInput:
+                                id: nombreProducto
+                                hint_text: "Nombre del producto"
+                                multiline: False
+                                font_size: self.width * 0.1
+                                size_hint: 1, .5
+                                halign: 'center' 
+                                valign: 'middle' 
+
+                    BoxLayout:
+                        size_hint_x: .9
+                        spacing: 15
+                        pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                        Image:
+                            source: root.ruta_imagenes + "/warehouse.png"
+                            size_hint: .5, 0.9
+                            pos_hint: {"center_y": 0.5} 
+
+                        BoxLayout:
+                            orientation: 'vertical'
+
+                            Label:
+                                text: "[b]Cantidad Disponible[/b]"
+                                size_hint: 1, .2
+                                font_size: self.width * 0.1
+                                markup: True  # Habilitar etiquetas de formato
+                                color: 0, 0, 0, 1
+
+                            TextInput:
+                                id: Stock
+                                hint_text: "Cantidad Disponible"
+                                multiline: False
+                                font_size: self.width * 0.1
+                                size_hint: 1, .5
+                                pos_hint: {"center_y": 0.5}
+                                halign: 'center' 
+                                valign: 'middle' 
+
+                    BoxLayout:
+                        size_hint_x: .9
+                        spacing: 15
+                        pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                        Image:
+                            source: root.ruta_imagenes + "/market-segment.png"
+                            size_hint: .5, 0.9
+                            pos_hint: {"center_y": 0.5} 
+
+                        BoxLayout:
+                            orientation: 'vertical'
+
+                            Label:
+                                text: "[b]Categoria[/b]"
+                                size_hint: 1, .2
+                                font_size: self.width * 0.1
+                                markup: True  # Habilitar etiquetas de formato
+                                color: 0, 0, 0, 1
+
+                            TextInput:
+                                id: categoria
+                                hint_text: "Categoria"
+                                multiline: False
+                                font_size: self.width * 0.1
+                                size_hint: 1, .5
+                                pos_hint: {"center_y": 0.5}
+                                halign: 'center' 
+                                valign: 'middle' 
+
+                    BoxLayout:
+                        size_hint_x: .9
+                        spacing: 15
+                        pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                        Image:
+                            source: root.ruta_imagenes + "/barcode.png"
+                            size_hint: .5, 0.9
+                            pos_hint: {"center_y": 0.5} 
+
+                        BoxLayout:
+                            spacing: 3
+                            orientation: 'vertical'
+
+                            Label:
+                                text: "[b]Codigo de Barras[/b]"
+                                size_hint: 1, .2
+                                font_size: self.width * 0.1
+                                markup: True  # Habilitar etiquetas de formato
+                                color: 0, 0, 0, 1
+
+                            TextInput:
+                                id: codigoBarras
+                                hint_text: "Codigo de barras"
+                                multiline: False
+                                font_size: self.width * 0.1
+                                size_hint: 1, .5
+                                pos_hint: {"center_y": 0.5}
+                                halign: 'center' 
+                                valign: 'middle' 
+
+                            Button:
+                                text: "[b]Generar Nuevo Codigo[/b]"
+                                markup: True
+                                size_hint: 1, .2
+                                font_size: self.width * 0.1
+                                pos_hint: {'center_x': 0.5}
+                                on_press: root.generar_codigo()
+                                background_normal: ''  
+                                background_color: 0, 1, 0.2, 1  
+                                color: 0 , 0 , 0 , 1
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:1
+                size_hint_x:.7
+                spacing: 5
+                padding: 20
+                pos_hint:{"center_x":0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+
+
+                BoxLayout:
+                    size_hint_y: 0.15
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5, 'center_x': 0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/shopping.png"
+                        size_hint: .3, 1
+                        pos_hint: {"center_y": 0.5}
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: .6, 1
+
+                        Label:
+                            text: "[b]Precio de Venta[/b]"
+                            size_hint_y: 0.4  # Reducir el tamaño del Label
+                            font_size: '16sp'
+                            markup: True
+                            color: 0, 0, 0, 1
+                            halign: 'center'  # Centrar horizontalmente
+                            valign: 'middle'  # Centrar verticalmente
+                            text_size: self.size  # Ajustar el tamaño del texto al contenedor
+
+                        TextInput:
+                            id: precioPublico
+                            hint_text: "Precio de venta"
+                            multiline: False
+                            font_size: self.width * 0.1
+                            size_hint_y: 0.6  # Dar más espacio al TextInput
+                            pos_hint: {'center_x': 0.5}
+                            halign: 'center'
+                            valign: 'middle'
+                            input_filter: 'float'
+
+
+                BoxLayout:
+                    size_hint_y: 0.15
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/shopping.png"
+                        size_hint: .3, 1
+                        pos_hint: {"center_y": 0.5} 
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: .6, 1
+
+                        Label:
+                            text: "[b]Precio de Compra[/b]"
+                            size_hint: 1, .2
+                            font_size: self.width * 0.1
+                            markup: True  # Habilitar etiquetas de formato
+                            color: 0, 0, 0, 1
+
+                        TextInput:
+                            id: precioCompra
+                            hint_text: "Precio de compra"
+                            multiline: False
+                            font_size: self.width * 0.1
+                            size_hint_y: 0.4
+                            pos_hint: {"center_x": 0.5}
+                            halign: 'center' 
+                            valign: 'middle' 
+                            input_filter: 'float'
+                            on_text: root.calcular_ganacia()
+
+                BoxLayout:
+                    size_hint_y: 0.05
+                    size_hint_x: 0.5  # Aumentar el ancho disponible para el BoxLayout
+                    pos_hint: {'center_y': 0.5, 'center_x': 0.65}
+
+                    Label:
+                        text: '[b]Ganancia[/b]'
+                        font_size: self.width * 0.25
+                        markup: True  # Habilitar etiquetas de formato
+                        halign: 'center'  # Centrar el texto horizontalmente
+                        valign: 'middle'  # Centrar el texto verticalmente
+                        size_hint_x: 1  # Usar todo el espacio disponible del BoxLayout
+                        size_hint_y: 1
+                        color: 0, 0, 0, 1
+
+                BoxLayout:
+                    size_hint_y: 0.15
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/stock.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: "[b]Ganancia[/b]"
+                            size_hint: 1, .2
+                            font_size: self.width * 0.1
+                            markup: True  # Habilitar etiquetas de formato
+                            color: 0, 0, 0, 1
+
+                        TextInput:
+                            id: ganancia
+                            multiline: False
+                            font_size: self.width * 0.1
+                            size_hint: 1, .5
+                            pos_hint: {'center_x': 0.5}
+                            halign: 'center' 
+                            valign: 'middle' 
+                            readonly: True
+
+                BoxLayout:
+                    size_hint_y: .15
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/shopping.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: "[b]Precio Mayorista[/b]"
+                            size_hint: 1, .2
+                            font_size: self.width * 0.1
+                            markup: True  # Habilitar etiquetas de formato
+                            color: 0, 0, 0, 1
+
+                        TextInput:
+                            id: precioMayorista
+                            hint_text: "Precio Mayorista"
+                            multiline: False
+                            font_size: self.width * 0.1
+                            size_hint: 1, .5
+                            pos_hint: {"center_x": 0.5}
+                            halign: 'center' 
+                            valign: 'middle' 
+
+                BoxLayout:
+                    size_hint_y: .15
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/wholesale.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                        Label:
+                            text: "[b]Cantidad Mayorista[/b]"
+                            size_hint: 1, .2
+                            font_size: self.width * 0.1
+                            markup: True  # Habilitar etiquetas de formato
+                            color: 0, 0, 0, 1
+
+                        TextInput:
+                            id: CantidadMayorista
+                            hint_text: "cantidad Mayorista"
+                            multiline: False
+                            font_size: self.width * 0.1
+                            size_hint: 1, .5
+                            pos_hint: {"center_x": 0.5}
+                            halign: 'center' 
+                            valign: 'middle' 
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y:1
+                size_hint_x:.7
+                spacing: 20
+                padding: 20
+                pos_hint:{"center_y":0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos  # Posición del TextInput
+                        size: self.size  # Tamaño del TextInput
+                        radius: [20]
+
+                BoxLayout:
+                    size_hint_y: 0.5
+                    size_hint_x: .9
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/graphic-design.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+                    Label:
+                        text: '[b]unidad de medida[/b]'
+                        font_size: self.width * 0.09
+                        markup: True 
+                        halign: 'center'  
+                        valign: 'middle'  
+                        color: 0, 0, 0, 1
+                
+                BoxLayout:
+                    size_hint_y: 0.5
+                    size_hint_x: .9
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+
+                    Spinner:
+                        id: unidadMedida
+                        text: "Seleciona el Tipo de Medida"  # Texto que se muestra cuando no se ha seleccionado nada
+                        values: ['Peso','Logitud','Pieza']  # Opciones disponibles
+                        font_size: self.width * 0.07
+                        size_hint: .02, .9
+                        pos_hint: {"center_x": 0.5}
+
+                BoxLayout:
+                    size_hint_y: 0.5
+                    size_hint_x: .9
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    Image:
+                        source: root.ruta_imagenes + "/all-inclusive.png"
+                        size_hint: .5, 0.9
+                        pos_hint: {"center_y": 0.5} 
+
+
+                    Label:
+                        text: '[b]proveedores[/b]'
+                        font_size: self.width * 0.09
+                        markup: True  
+                        halign: 'center' 
+                        valign: 'middle'  
+                        color: 0, 0, 0, 1
+
+                BoxLayout:
+                    size_hint_y: 0.5
+                    size_hint_x: .9
+                    spacing: 15
+                    pos_hint: {'center_y': 0.5,'center_x':0.5}
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        BoxLayout:
+                            orientation: 'horizontal'   
+                            TextInput:
+                                id: search_input
+                                hint_text: "Buscar proveedor"
+                                on_text: root.filtrar_proveedores(self.text) 
+
+                            Button:
+                                size_hint_x:.5
+                                text: "Buscar"
+                                on_press: root.filtrar_proveedores(search_input.text) 
+                            
+                        Spinner:
+                            id: proveedores
+                            text: "Selecciona un proveedor"
+                            values: []
+
+        # Botón
+        BoxLayout:
+            size_hint_y: 0.13
+            size_hint_x: 0.5
+            pos_hint: {'center_x': 0.5 }
+            spacing: 20
+            
+            Button:
+                text: "[b]Gurdar Cambios[/b]"
+                markup: True
+                size_hint: .5, .7
+                pos_hint: {'center_y': 0.5}
+                on_press: root.editar_producto()
+                background_normal: ''  
+                background_color: 0, 1, 0.2, 1  
+                color: 0 , 0 , 0 , 1
+
+            Button:
+                text: "[b]Cancelar[/b]"
+                markup: True
+                size_hint: .5, .7
+                pos_hint: {'center_y': 0.5}
+                on_press: app.root.get_screen('inventario').dismiss_popup()
+                background_normal: ''  
+                background_color: 1, 0, 0, 1  
+                color: 0 , 0 , 0 , 1
+
+        # Mensaje final
+        BoxLayout:
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.06
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 

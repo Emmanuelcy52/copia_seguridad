@@ -1,0 +1,106 @@
+<PagarCreditoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 5
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint_y: 0.1
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgb: 255,255,255
+                RoundedRectangle:
+                    pos: self.pos  # Posición del TextInput
+                    size: self.size  # Tamaño del TextInput
+                    radius: [20]
+
+            Label:
+                text: "[b]Pagar Deuda Cliente[/b]"
+                pos_hint: {'center_x': 0.5}
+                font_size: self.width * 0.05
+                markup: True  # Habilitar etiquetas de formato
+                color: 0, 0, 0, 1
+                
+        BoxLayout:
+            orientation: 'horizontal'  # Dividir en dos columnas
+            size_hint: 1, 1
+            spacing: 5
+            padding: 10
+
+            # Sección izquierda: Productos
+            BoxLayout:
+                orientation: 'vertical'
+                pos_hint: {'top': 1}  # Anclado a la parte superior
+                size_hint_x: 0.9  # 70% del ancho total
+                size_hint_y: 0.7
+                padding: 10
+                spacing: 20
+                canvas.before:
+                    Color:
+                        rgb: 1, 1, 1  # Blanco
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    id: montoRestante
+                    text: "Monto Restante"
+                    font_size: self.width * 0.05
+                    bold: True
+                    size_hint_y: 0.1
+                    color: 0, 0, 0, 1
+
+                TextInput:
+                    id: monto_pago
+                    hint_text: 'Ingresa el moto a pagar'
+                    multiline: False
+                    font_size: self.width * 0.04
+                    size_hint: .9, .1
+                    pos_hint: {'center_x': 0.5}
+                    halign: 'center'
+
+                Button:
+                    text: "Comfirmar Pago"
+                    on_press: root.confirmar_pago()
+                    size_hint_y: None
+                    font_size: self.width * 0.09
+                    size_hint: .7, .1
+                    pos_hint: {'center_x': 0.5}
+                    background_color: 0.3, 0.7, 0.9, 1
+
+        # Mensaje final
+        BoxLayout:
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                id: message
+                text: ""
+                color: (1, 1, 1, 1) 
+                font_size: self.width * 0.06
+                bold: True 
+
+            Image:
+                source: root.ruta_imagenes + "/alarm.png"
+                size_hint: .2, .5
+                pos_hint: {"center_y": 0.5} 

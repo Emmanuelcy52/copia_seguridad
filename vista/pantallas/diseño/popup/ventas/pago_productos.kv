@@ -1,0 +1,286 @@
+<ProcesarPagoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.98, 0.55, 0, 1  # Color de fondo del layout
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        # Sección inicial del layout
+        BoxLayout:
+            size_hint_y: 0.15
+            size_hint_x: .9
+            pos_hint: {'center_x': 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+
+            Image:
+                source: root.ruta_imagenes + "/success.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+            Label:
+                text: "[b]Procesar Compra[/b]"
+                font_size: self.width * 0.1
+                markup: True
+                color: 0, 0, 0, 1
+
+            Image:
+                source: root.ruta_imagenes + "/success.png"
+                size_hint: .5, 0.8
+                pos_hint: {"center_y": 0.5} 
+
+        BoxLayout:
+            size_hint_x: .9
+            pos_hint: {"center_x": 0.5}
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            # Sección de cantidad y cambio
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: .9
+                orientation: 'vertical'
+                pos_hint: {"center_x": 0.5}
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+
+                Label:
+                    id: label_total
+                    text: "Cantidad a Pagar: $0.00"
+                    font_size: self.width * 0.06
+                    color: 0, 0, 0, 1
+
+                Label:
+                    text: "Forma de pago:"
+                    font_size: self.width * 0.06
+                    color: 0, 0, 0, 1
+
+                Spinner:
+                    id: spinner_tipo_pago
+                    text: "Seleccionar Tipo"
+                    size_hint_x: .5
+                    size_hint_y: .4
+                    pos_hint: {"center_x": 0.5}
+                    values: ["Efectivo", "Credito"]
+                    on_text: root.on_spinner_tipo_pago_change(self.text)
+
+                Label:
+                    text: "Dinero Recibido:"
+                    font_size: self.width * 0.06
+                    color: 0, 0, 0, 1
+
+                TextInput:
+                    id: input_dinero
+                    multiline: False
+                    size_hint_x: .5
+                    size_hint_y: .5
+                    pos_hint: {"center_x": 0.5}
+                    font_size: self.width * 0.1
+                    text_size: self.size
+                    halign: 'center' 
+                    valign: 'middle'
+                    input_filter: 'float'
+                    on_text: root.devolver_cambio(self.text)
+
+                Label:
+                    id: label_cambio
+                    text: "Cambio a Dar: $0.00"
+                    font_size: self.width * 0.07
+                    color: 0, 0, 0, 1
+
+            # Sección de garantía
+            BoxLayout:
+                size_hint_y: 1
+                size_hint_x: .9
+                orientation: 'vertical'
+                pos_hint: {"center_x": 0.5}
+                spacing: 10
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [20]
+                BoxLayout:
+                    padding: ('10dp', '10dp', '10dp', '10dp')
+                    size_hint_y: .2
+                    pos_hint: {"center_y": 0.5}
+
+                    Label:
+                        text: "El producto cuenta con garantia ?"
+                        size_hint_x: 0.6
+                        pos_hint: {"center_x": 0.5}
+                        font_size: self.width * 0.07
+                        color: 0, 0, 0, 1
+
+                    CheckBox:
+                        id: checkbox_garantia
+                        size_hint_x: 0.3
+                        on_active: root.habilitar_garantia(self.active)
+                        canvas.before:
+                            Color:
+                                rgba: (0.2, 0.6, 0.8, 1) if self.active else (0.8, 0.8, 0.8, 1)  # Azul si está activo, gris si no
+                            Ellipse:
+                                pos: self.center_x - 10, self.center_y - 10
+                                size: 20, 20
+                        canvas.after:
+                            Color:
+                                rgba: (0, 1, 0, 1) if self.active else (1, 0, 0, 1)  # Verde si está activo, rojo si no
+                            Line:
+                                width: 1.5
+                                circle: (self.center_x, self.center_y, 10)
+
+                BoxLayout:
+                    size_hint_y: 1
+                    pos_hint: {"center_y": 0.5}
+                    orientation: 'vertical'
+                    padding: ('10dp', '10dp', '10dp', '10dp')
+                    spacing: 10
+                    disabled: True if not checkbox_garantia.active else False
+
+                    TextInput:
+                        id: input_codigo_garantia
+                        hint_text: "Código de Garantía"
+                        font_size: self.width * 0.05
+                        multiline: False
+                        readonly: True
+
+                    TextInput:
+                        id: input_codigo_producto
+                        hint_text: "Código de producto"
+                        font_size: self.width * 0.05
+                        multiline: False
+
+                    BoxLayout:
+                        Label:
+                            text: "Fecha de Inicio:"
+                            color: 0, 0, 0, 1
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: "40dp"
+                            spacing: 10
+                            TextInput:
+                                id: input_fecha_inicio
+                                hint_text: "DD/MM/AAAA"
+                                multiline: False
+                                readonly: True
+                            Image:
+                                id: img_calendario_inicio
+                                source: root.ruta_imagenes + "/schedule.png"
+                                size_hint: None, None
+                                width: "40dp" 
+                                height: "40dp"
+                                opacity: 1 
+                                on_touch_down: root.on_touch_imagen(args, "inicio")
+
+                    BoxLayout:
+                        Label:
+                            text: "Fecha de Fin:"
+                            color: 0, 0, 0, 1
+                        BoxLayout:
+                            orientation: "horizontal"
+                            size_hint_y: None
+                            height: "40dp"
+                            spacing: 10
+                            TextInput:
+                                id: input_fecha_fin
+                                hint_text: "DD/MM/AAAA"
+                                multiline: False
+                                readonly: True
+                            Image:
+                                id: img_calendario_fin
+                                source: root.ruta_imagenes + "/expired.png"
+                                size_hint: None, None
+                                width: "40dp" 
+                                height: "40dp"
+                                opacity: 1 
+                                on_touch_down: root.on_touch_imagen(args, "fin")
+
+                    BoxLayout:
+                        Label:
+                            text: "Tipo de Garantía:"
+                            color: 0, 0, 0, 1
+                        Spinner:
+                            id: spinner_tipo_garantia
+                            text: "Seleccionar Tipo"
+                            values: ["Defectos de fabricación", "Daños por transporte", "Garantía extendida"]
+
+                    BoxLayout:
+                        Button:
+                            text: "Registar garantia"
+                            background_color: 0, 1, 0, 1
+                            font_size: self.width * 0.05
+                            on_press: root.agregargarantia()
+
+        # Botones de acción
+        BoxLayout:
+            size_hint_y: 0.1
+            spacing: 20
+
+            Button:
+                text: "Validar Compra"
+                background_color: 0, 1, 0, 1
+                font_size: self.width * 0.05
+                on_press: root.validar_compra()
+
+            Button:
+                text: "Cancelar"
+                background_color: 1, 0, 0, 1
+                font_size: self.width * 0.05
+                on_press: app.root.get_screen('home').dismiss_popup()
+
+        BoxLayout:
+            id: mensajes
+            size_hint_y: root.size_hint_y_menssage
+            size_hint_x: root.size_hint_x_menssage
+            height: root.height_message  
+            pos_hint: {'center_x': 0.5}
+            orientation: 'vertical'
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Color de fondo del layout
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+            BoxLayout:
+                Image:
+                    source: root.ruta_imagenes + "/alarm.png"
+                    size_hint: 1, 1
+                    pos_hint: {"center_y": 0.5} 
+
+                Label:
+                    id: message
+                    text: ""
+                    color: (1, 1, 1, 1) 
+                    font_size: self.width * 0.05
+                    bold: True 
+
+                Image:
+                    source: root.ruta_imagenes + "/alarm.png"
+                    size_hint: 1, 1
+                    pos_hint: {"center_y": 0.5} 
+
+            BoxLayout:  # Contenedor donde se agregará el TextInput dinámicamente
+                id: input_container
