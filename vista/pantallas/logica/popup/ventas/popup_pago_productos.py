@@ -20,13 +20,23 @@ from control.BDconsultas.inventario.CRUD import actualizarcantidad
 from control.BDconsultas.creditos.CRUD import registro
 from control.BDconsultas.clientes.CRUD import obtener_cliente_datos,validar_credito
 from control.BDconsultas.ventas.CRUD import registrar_venta_efectivo,registrar_venta_credito,registrar_detalles_venta
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','..','..','diseño','popup','ventas','pago_productos.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño','popup','ventas','pago_productos.kv'))
 Builder.load_file(kv_path)
 
 class ProcesarPagoScreen(Screen):
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..','..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     input_fecha_inicio = ObjectProperty(None)
@@ -55,12 +65,14 @@ class ProcesarPagoScreen(Screen):
         
     def on_spinner_tipo_pago_change(self, selected_value):
         if selected_value == "Efectivo":
+            self.ids.input_dinero.disabled = False
             self.total_pago_formateado = int(re.search(r'\d+',self.total_pagar ).group())
             self.cambio = -self.total_pago_formateado
             self.ids.label_total.text = f"Total a pagar: ${self.total_pago_formateado}"
             self.ids.label_cambio.text = f"Cambio a Dar: ${self.cambio}"
             self.manejar_pago_efectivo()
         elif selected_value == "Credito":
+            self.ids.input_dinero.disabled = False
             self.total_pago_formateado = int(re.search(r'\d+',self.total_pagar ).group())
             self.total_pago_formateado += self.total_pago_formateado * 0.10
             self.cambio = -self.total_pago_formateado
@@ -122,10 +134,12 @@ class ProcesarPagoScreen(Screen):
         self.ids.label_cambio.text = f"Cambio a Dar: ${self.cambio}"
         
     def validar_compra(self):
+        print("dentro de validar")
         fecha = datetime.now().strftime('%d/%m/%Y')
         datos_venta = venta.obtener_venta()
         totalproductos = len(datos_venta)
         if self.ventaseleccion == False:
+            print("dentro de if de ventaseleccion")
             if self.tipo_venta == "Seleccionar Tipo":
                 self.ids.message.text = "Selecciona un tipo de pago"
                 self.ids.message.color = (1, 0, 0, 1)  # Color rojo
@@ -140,12 +154,14 @@ class ProcesarPagoScreen(Screen):
                 if self.ids.input_dinero.text == "":
                     self.ids.input_dinero.text = "0.0"
                 if float(self.ids.input_dinero.text) < self.total_pago_formateado:
+                    print("dentro del mensaje")
                     self.ids.message.text = "El dinero recibido en compras en efectivo no puede ser menor al total"
                     self.ids.message.color = (1, 0, 0, 1)  # Color rojo
                     self.height_message = 10
                     self.size_hint_x_menssage = .9
                     self.size_hint_y_menssage = 0.4
                     Clock.schedule_once(self.cerrarmensaje, 3)
+                    self.ventaseleccion = False
                     return
                 estado, id_venta = registrar_venta_efectivo(fecha, self.total_pago_formateado, self.dinero_fromateado, self.cambio, totalproductos, status,self.id_user)
                 if estado == 'Exito':
@@ -274,11 +290,14 @@ class ProcesarPagoScreen(Screen):
     def imprimirtiket(self, productos, total_compra, pago_con, cambio_devuelto):
         # Configuración del encabezado
         fecha_hora = datetime.now().strftime('%d/%m/%Y %H:%M')
-        ticket_text = "\n\n"
-        ticket_text += f"Tlapalería AguiYon\n\n\n"
-        ticket_text += f"Fecha: {fecha_hora}\n\n\n"
-        ticket_text += "TICKET DE COMPRA\n\n\n"
-        ticket_text += "\n\n"
+        ticket_text = f"Tlapalería AguiYon\n"
+        ticket_text += "Ubicacion:\n"
+        ticket_text += '''Leandro Valle 5, Miraflores
+        56647 San Mateo Tezoquipan 
+        Miraflores, Méx.\n'''
+        ticket_text += f"Fecha: {fecha_hora}\n"
+        ticket_text += "TICKET DE COMPRA\n"
+        ticket_text += "\n"
 
             # Recorrer productos y agregar al ticket
         for producto in productos:
@@ -294,28 +313,29 @@ class ProcesarPagoScreen(Screen):
                 precio = producto['precioMayorista']
             else:
                 precio = producto['precioPublico']
-            ticket_text += f"{nombre:<10} x {cantidad} {unidad_medida} ${float(precio):<5}\n\n\n"
+            ticket_text += f"{nombre:<10} x {cantidad} {unidad_medida} ${float(precio):<5}\n"
 
         # Agregar totales y otros datos
-        ticket_text += "\n\n"
-        ticket_text += f"TOTAL:           ${total_compra:<5}\n\n\n"
-        ticket_text += f"PAGO CON:        ${pago_con:<5}\n\n\n"
-        ticket_text += f"CAMBIO DEVUELTO: ${cambio_devuelto:<5}\n\n\n"
-        ticket_text += "\n\n"
-        ticket_text += "grantias activadas\n\n\n"
+        ticket_text += "\n"
+        ticket_text += f"TOTAL:       ${total_compra:<5}\n"
+        ticket_text += f"PAGO CON: ${pago_con:<5}\n"
+        ticket_text += f"CAMBIO:   ${cambio_devuelto:<5}\n\n"
+        ticket_text += "grantias activadas\n"
         if self.garantias:
             for garantia in self.garantias:
-                ticket_text += f"Código de la garantía: {garantia}\n\n\n"
-            ticket_text += "Nota: no pierda este ticket\n\n\n"
-            ticket_text += "Garantía no válida sin el ticket\n\n\n"
-            ticket_text += "\n\n"
-            ticket_text += "muchas gracias por su compra\n\n\n"
-            ticket_text += "\n\n"
+                ticket_text += f"Código de la garantía: \n"
+                ticket_text += f"{garantia}\n"
+            ticket_text += "Nota: no pierda este ticket\n"
+            ticket_text += "Garantía no válida sin el ticket"
+            ticket_text += "\n"
+            ticket_text += "muchas gracias por su compra"
+            ticket_text += "\n"
+            ticket_text += "--------------------------------------\n\n"
         else:
-            ticket_text += "Nota: Este ticket no incluye garantía\n\n\n"
-            ticket_text += "\n\n"
-            ticket_text += "muchas gracias por su compra\n\n\n"
-            ticket_text += "\n\n"
+            ticket_text += '''Nota: Este ticket 
+            no incluye garantía\n'''
+            ticket_text += "muchas gracias por su compra\n"
+            ticket_text += "--------------------------------------\n\n"
         # Obtener la impresora predeterminada
         printer_name = win32print.GetDefaultPrinter()
         hprinter = win32print.OpenPrinter(printer_name)
@@ -328,9 +348,14 @@ class ProcesarPagoScreen(Screen):
              # Iniciar el trabajo de impresión
             printer_device.StartDoc("Ticket de Compra")
             printer_device.StartPage()
+            font=win32ui.CreateFont({
+                "name": "Arial",
+                "height": 30,
+            })
+            printer_device.SelectObject(font)
 
             # Configurar posición inicial en la hoja
-            x, y = 100, 100
+            x, y = 10, 10
             line_spacing = 50  # Espaciado entre líneas
 
             # Escribir línea por línea del ticket
@@ -468,7 +493,7 @@ class ProcesarPagoScreen(Screen):
     def cerrarmensaje(self, *args):
         grid = self.ids.input_container
         grid.clear_widgets()
-        self.height_message = 0  # Restaura la altura del mensaje
+        self.height_message = 0
         self.size_hint_x_menssage = 0
         self.size_hint_y_menssage = 0
         self.ids.message.text = ""   

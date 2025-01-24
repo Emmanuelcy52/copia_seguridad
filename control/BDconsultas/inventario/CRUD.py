@@ -1,10 +1,21 @@
 import sqlite3
 import bcrypt
+import os
+import sys
+
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
             
 def obtener_productos():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -32,7 +43,7 @@ def obtener_productos():
 def obtener_producto_id(id):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -60,7 +71,7 @@ def obtener_producto_id(id):
 def obtener_producto_codigoBR(codigo_barras):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -88,7 +99,7 @@ def obtener_producto_codigoBR(codigo_barras):
 def registro(id_proveedor,nombre_producto,precio_publico,precio_compra,precio_mayorista,unidad_medida,cantidad_inventario,cantidad_mayorista,categoria,codigo_barras):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -121,7 +132,7 @@ def registro(id_proveedor,nombre_producto,precio_publico,precio_compra,precio_ma
 def editar(id_proveedor,nombre_producto,precio_publico,precio_compra,precio_mayorista,unidad_medida,cantidad_inventario,cantidad_mayorista,categoria,codigo_barras,id_producto):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -156,7 +167,7 @@ def editar(id_proveedor,nombre_producto,precio_publico,precio_compra,precio_mayo
 def eliminar(id_producto):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -189,7 +200,7 @@ def eliminar(id_producto):
 def actualizarcantidad(idventa):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -241,7 +252,7 @@ def actualizarcantidad(idventa):
 def obtener_productos_bajos():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

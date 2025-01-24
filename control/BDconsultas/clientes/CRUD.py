@@ -1,11 +1,22 @@
 import sqlite3
 import bcrypt
 from control.datos.datos import sesion
+import os
+import sys
+
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def obtener_clientes():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -36,7 +47,7 @@ def obtener_clientes():
 def obtener_cliente_id(id):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -64,7 +75,7 @@ def obtener_cliente_id(id):
 def obtener_deuda(id):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -93,7 +104,7 @@ def obtener_deuda(id):
 def obtener_cliente_datos(dato):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -122,7 +133,7 @@ def obtener_cliente_datos(dato):
 def validar_credito(id, credito):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Usar el contexto 'with' para manejar la conexión y el cursor
         with sqlite3.connect(ruta_db) as conexion:
@@ -162,7 +173,7 @@ def validar_credito(id, credito):
 def registro(codigoCliente,nombreReal, clave_lector, telefono, direccion, correo, nombre_refente, telefono_refente, direccion_refente,limite_credito):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -200,7 +211,7 @@ def registro(codigoCliente,nombreReal, clave_lector, telefono, direccion, correo
 def editar(codigoCliente,nombreReal, clave_lector, telefono, direccion, correo, nombre_refente, telefono_refente, direccion_refente,limite_credito, id_cliente):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -236,7 +247,7 @@ def editar(codigoCliente,nombreReal, clave_lector, telefono, direccion, correo, 
 def eliminar(id_cliente):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

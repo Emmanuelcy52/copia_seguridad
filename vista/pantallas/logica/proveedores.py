@@ -1,4 +1,5 @@
 import os
+import sys
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
@@ -15,12 +16,21 @@ from vista.pantallas.logica.popup.proveedores.pantalla_editar_proveedor import E
 from kivy.clock import Clock
 from kivy.properties import StringProperty
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','diseño', 'proveedores.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño', 'proveedores.kv'))
 Builder.load_file(kv_path)
 
 class ProveedoresScreen(Screen):
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def on_enter(self):
@@ -341,3 +351,7 @@ class ProveedoresScreen(Screen):
     def redirect_corte_caja(self, *args):
         app = App.get_running_app()
         app.root.current = 'corte_caja'
+        
+    def redirect_Estadisticas(self, *args):
+        app = App.get_running_app()
+        app.root.current = 'Estadisticas'

@@ -21,16 +21,26 @@ from control.BDconsultas.inventario.CRUD import obtener_productos,obtener_produc
 from vista.pantallas.logica.popup.productos.popup_registro_productos import RegistroProductosScreen
 from vista.pantallas.logica.popup.productos.popup_editar_productos import EditarProductosScreen
 from kivy.properties import StringProperty
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','diseño', 'inventario.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño', 'inventario.kv'))
 Builder.load_file(kv_path)
 
 class InventrioScreen(Screen):
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     ruta_barcode = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'codebar'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'codebar'))
     )
     def on_enter(self):
         """Se llama cuando la pantalla está a punto de mostrarse."""
@@ -235,30 +245,30 @@ class InventrioScreen(Screen):
             label_precio = Label(
                 text=str(precio_publico),
                 color=(0, 0, 0, 1),
-                text_size=(None, None),  # Tamaño inicial
-                size_hint=(1, None),  # Asegura que el texto no expanda el widget
-                shorten=True,  # Truncar texto si es demasiado largo
-                shorten_from='right'  # Truncar desde la derecha
+                text_size=(None, None),
+                size_hint=(1, None),
+                shorten=True,
+                shorten_from='right'
             )
             grid.add_widget(label_precio)
             
             label_precio_compra = Label(
                 text=str(precio_compra),
                 color=(0, 0, 0, 1),
-                text_size=(None, None),  # Tamaño inicial
-                size_hint=(1, None),  # Asegura que el texto no expanda el widget
-                shorten=True,  # Truncar texto si es demasiado largo
-                shorten_from='right'  # Truncar desde la derecha
+                text_size=(None, None),
+                size_hint=(1, None),
+                shorten=True, 
+                shorten_from='right'
             )
             grid.add_widget(label_precio_compra)
             
             label_cantidad = Label(
                 text=str(cantidad_inventario),
                 color=(0, 0, 0, 1),
-                text_size=(None, None),  # Tamaño inicial
-                size_hint=(1, None),  # Asegura que el texto no expanda el widget
-                shorten=True,  # Truncar texto si es demasiado largo
-                shorten_from='right'  # Truncar desde la derecha
+                text_size=(None, None),
+                size_hint=(1, None), 
+                shorten=True,  
+                shorten_from='right'  
             )
             grid.add_widget(label_cantidad)
 
@@ -304,11 +314,9 @@ class InventrioScreen(Screen):
                 on_release=lambda x, name=nombre_producto, id=id_producto: self.eliminar_producto(id, name)
             )
 
-            # Añadir Editar y Eliminar al BoxLayout Horizontal
             acciones1.add_widget(btn_editar)
             acciones1.add_widget(btn_eliminar)
 
-            # Botón Código de Barras
             btn_codigobarras = Button(
                 text='[b]Imprimir Código de Barras[/b]',
                 markup=True,
@@ -319,27 +327,24 @@ class InventrioScreen(Screen):
                 pos_hint={'center_x': 0.5},
                 on_release=lambda x, name=nombre_producto,codigoBarras=codigo_barras: self.imprimirCodigo(codigoBarras,name)
             )
-
-            # Añadir el Box Horizontal y el botón Código de Barras al Box Vertical
+            
             acciones.add_widget(acciones1)
             acciones.add_widget(btn_codigobarras)
 
-            # Añadir las acciones al grid
             grid.add_widget(acciones)
             
     def editar_producto(self, id_producto):
-        """Abre el modal para editar un proveedor."""
-        producto = obtener_producto_id(id_producto)  # Obtén los datos del proveedor por ID
+        producto = obtener_producto_id(id_producto) 
         if producto:
-            self.show_popup_editar(producto)  # Pasar los datos al popup
+            self.show_popup_editar(producto)
         else:
-            print(f"No se encontró el empleado con ID: {id_producto}")
+            print(f"No se encontró el producto con ID: {id_producto}")
 
     def eliminar_producto(self, id_producto,name):
         # Crear el contenido del Popup de confirmación
         box_layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
         label = Label(
-            text=f"¿Estás seguro de que deseas eliminar al empleado llamado?",
+            text=f"¿Estás seguro de que deseas eliminar el producto llamado?",
             color=(0, 0, 0, 1),  
             size_hint_x=1,
             size_hint_y=1,
@@ -449,8 +454,6 @@ class InventrioScreen(Screen):
         
 
     def imprimirCodigo(self, codigoBarras, name):
-        # Configuración del encabezado
-        fecha_hora = datetime.now().strftime('%d/%m/%Y %H:%M')
         ticket_text = ""
         ticket_text += "           PRODUCTO\n"
         ticket_text += "----------------------------\n"
@@ -483,7 +486,7 @@ class InventrioScreen(Screen):
             printer_device.StartPage()
 
             # Configurar posición inicial en la hoja
-            x, y = 10, 100
+            x, y = 10, 10
             line_spacing = 30  # Espaciado entre líneas
 
             # Escribir línea por línea del ticket
@@ -491,43 +494,50 @@ class InventrioScreen(Screen):
                 printer_device.TextOut(x, y, line.strip())  # Eliminar espacios innecesarios
                 y += line_spacing
 
-            # Dibujar la imagen del código de barras en el ticket
-            # Convertir la imagen en formato compatible con `win32ui`
             dib = PIL.ImageWin.Dib(barcode_image)
 
-            # Configurar posición y tamaño de la imagen
-            image_x, image_y = x, y  # Posición inicial de la imagen
+            image_x, image_y = x, y
             image_width, image_height = barcode_image.size
-            # Estirar la imagen un 20% más ancha en el eje X
             stretched_width = image_width  
             stretched_height = image_height 
 
-            # Dibujar la imagen estirada solo en el eje X
             dib.draw(printer_device.GetHandleOutput(), (image_x, image_y, image_x + stretched_width, image_y + stretched_height))
 
-            # Finalizar el trabajo de impresión
+            # Actualizar la posición vertical (y) después de la imagen
+            y += stretched_height + line_spacing
+
+            # Agregar el texto adicional debajo de la imagen
+            texto_adicional = (
+                "----------------------------\n\n"
+            )
+            for line in texto_adicional.split("\n"):
+                printer_device.TextOut(x, y, line.strip())
+                y += line_spacing
+
             printer_device.EndPage()
             printer_device.EndDoc()
 
         except Exception as e:
             print(f"Error durante la impresión: {e}")
-            # Cancelar el trabajo de impresión en caso de error
             win32print.AbortPrinter(hprinter)
 
         finally:
-            # Liberar recursos
             printer_device.DeleteDC()
             win32print.ClosePrinter(hprinter)
 
         return True
 
+
     def generarCodigoBarras(self, codigoBarras):
-        from barcode import Code128
-        from barcode.writer import ImageWriter
+        # Ruta explícita a la fuente
+        font_path = resource_path(os.path.join("fuentes", "Fermata-Regular.otf"))
+        if not os.path.exists(font_path):
+            raise FileNotFoundError(f"La fuente especificada no se encuentra: {font_path}")
 
         # Generar código de barras como imagen
         barcode_class = Code128
         writer = ImageWriter()
+        writer.font_path = font_path  # Asignar la fuente explícitamente
         barcode = barcode_class(codigoBarras, writer=writer)
 
         # Construir la ruta completa para guardar el archivo
@@ -608,3 +618,7 @@ class InventrioScreen(Screen):
     def redirect_corte_caja(self, *args):
         app = App.get_running_app()
         app.root.current = 'corte_caja'
+        
+    def redirect_Estadisticas(self, *args):
+        app = App.get_running_app()
+        app.root.current = 'Estadisticas'

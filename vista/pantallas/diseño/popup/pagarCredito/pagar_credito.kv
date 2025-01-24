@@ -65,6 +65,7 @@
                     size_hint: .9, .1
                     pos_hint: {'center_x': 0.5}
                     halign: 'center'
+                    input_filter: 'float'
 
                 Button:
                     text: "Comfirmar Pago"
@@ -74,6 +75,15 @@
                     size_hint: .7, .1
                     pos_hint: {'center_x': 0.5}
                     background_color: 0.3, 0.7, 0.9, 1
+
+                Button:
+                    text: "Cancelar Pago"
+                    on_press: root.cerrarpopup()
+                    size_hint_y: None
+                    font_size: self.width * 0.09
+                    size_hint: .7, .1
+                    pos_hint: {'center_x': 0.5}
+                    background_color: 1, 0, 0, 1
 
         # Mensaje final
         BoxLayout:

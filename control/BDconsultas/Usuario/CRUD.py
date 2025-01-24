@@ -1,11 +1,22 @@
 import sqlite3
 import bcrypt
 from control.datos.datos import sesion
+import os
+import sys
+
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def obtener_empleados(id_excluir):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -37,7 +48,7 @@ def obtener_empleados(id_excluir):
 def obtener_empleado_id(id):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -66,7 +77,7 @@ def obtener_empleado_id(id):
 def login(username,password):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -108,7 +119,7 @@ def login(username,password):
 def registro(nombreReal, nombreUsuario,contrasena,rol,codigoRecu):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -147,7 +158,7 @@ def registro(nombreReal, nombreUsuario,contrasena,rol,codigoRecu):
 def editar(nuevo_nombre, nuevo_nombre_usuario, nuevo_tipo, nueva_codigo, nueva_contraseña, id_usuario):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -193,7 +204,7 @@ def editar(nuevo_nombre, nuevo_nombre_usuario, nuevo_tipo, nueva_codigo, nueva_c
 def eliminar(id_proveedor):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -226,7 +237,7 @@ def eliminar(id_proveedor):
 def crear_o_actualizar_respaldo(fecha_respaldo, fecha_proximo_respaldo, estado):
     try:
         # Ruta a la base de datos
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -267,7 +278,7 @@ def crear_o_actualizar_respaldo(fecha_respaldo, fecha_proximo_respaldo, estado):
 def obtener_respaldo():
     try:
         # Ruta a la base de datos
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

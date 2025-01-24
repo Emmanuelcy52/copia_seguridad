@@ -1,4 +1,5 @@
 import os
+import sys
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
@@ -10,8 +11,17 @@ from kivy.utils import get_color_from_hex
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
 # Obtén la ruta absoluta del archivo KV
-kv_path = os.path.join(os.path.dirname(__file__), '..','..','..','diseño','popup','usuarios','registro_user.kv')
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño','popup','usuarios','registro_user.kv'))
 Builder.load_file(kv_path)
 
 class RegistroUserScreen(Screen):
@@ -21,7 +31,7 @@ class RegistroUserScreen(Screen):
     size_hint_y_menssage = NumericProperty(0)
     # Define la ruta a las imágenes como una propiedad
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..','..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def Registar_usuario(self):

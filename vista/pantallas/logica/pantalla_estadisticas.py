@@ -13,8 +13,18 @@ from control.BDconsultas.ventas.CRUD import obtener_ventas,obtener_ventas_detall
 from control.BDconsultas.cortecaja.CRUD import obtener_corte_caja,obtener_dineroInical
 from kivy.clock import Clock
 from kivy.properties import StringProperty, NumericProperty
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','diseño', 'estadisticas.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño', 'estadisticas.kv'))
 Builder.load_file(kv_path)
 
 class EstadisticasScreen(Screen):
@@ -22,7 +32,7 @@ class EstadisticasScreen(Screen):
     size_hint_x_menssage = NumericProperty(0)
     size_hint_y_menssage = NumericProperty(0)
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def __init__(self, **kwargs):

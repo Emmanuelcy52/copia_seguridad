@@ -9,13 +9,23 @@ from control.datos.datos import sesion
 from control.BDconsultas.inventario.CRUD import obtener_productos_bajos
 from control.BDconsultas.proveedores.CRUD import obtener_proveedor_id
 from kivy.properties import StringProperty
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','..','..','diseño','popup','proveedores','alerta_stock_bajo.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño','popup','proveedores','alerta_stock_bajo.kv'))
 Builder.load_file(kv_path)
 
 class StockBajoScreen(Screen):
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def __init__(self, **kwargs):

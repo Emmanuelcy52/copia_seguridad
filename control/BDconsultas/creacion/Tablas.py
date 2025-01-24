@@ -1,10 +1,20 @@
 import sqlite3
 import os
+import sys
+
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def CrearTablas():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

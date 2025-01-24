@@ -1,4 +1,5 @@
 import os
+import sys
 from kivy.app import App
 from kivy.lang import Builder
 import re
@@ -20,8 +21,17 @@ from vista.pantallas.logica.popup.dineroDia.popup_dineroDia import dinerodiaScre
 from vista.pantallas.logica.popup.dineroDia.popup_egresar_dinero import egresardineroScreen
 from vista.pantallas.logica.popup.proveedores.pantalla_alerta_stock_bajo import StockBajoScreen
 
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
 # Obtén la ruta absoluta del archivo KV
-kv_path = os.path.join(os.path.dirname(__file__), '..','diseño', 'principal.kv')
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño', 'principal.kv'))
 Builder.load_file(kv_path)
 
 class HomeScreen(Screen):

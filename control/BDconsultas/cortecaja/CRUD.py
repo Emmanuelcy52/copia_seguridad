@@ -1,9 +1,20 @@
 import sqlite3
+import os
+import sys
+
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def obtener_corte_caja():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -33,7 +44,7 @@ def obtener_corte_caja():
 def obtener_dineroInical():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -63,7 +74,7 @@ def obtener_dineroInical():
 def registrar_corte_caja(id_monto_inicial,fecha_corte,monto_inicial,ingresos,egresos,total_corte):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -103,7 +114,7 @@ def registrar_corte_caja(id_monto_inicial,fecha_corte,monto_inicial,ingresos,egr
 def obtener_ventas_corte(fecha):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -131,7 +142,7 @@ def obtener_ventas_corte(fecha):
 def obtener_dinero_inicial(fecha):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -159,7 +170,7 @@ def obtener_dinero_inicial(fecha):
 def validad_corte(fecha):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -187,7 +198,7 @@ def validad_corte(fecha):
 def registrar_dinero_inicial(monto_inicial,fecha):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -217,7 +228,7 @@ def registrar_dinero_inicial(monto_inicial,fecha):
 def registrar_egreso_dinero(id_saldo_dia,monto_egresado,motivo_egreso,hora_egreso):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -247,7 +258,7 @@ def registrar_egreso_dinero(id_saldo_dia,monto_egresado,motivo_egreso,hora_egres
 def obtener_egreso(id_saldo_dia):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -275,7 +286,7 @@ def obtener_egreso(id_saldo_dia):
 def obtener_pagos(fecha):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

@@ -1,10 +1,20 @@
 import sqlite3
+import os
+import sys
 
+# Función para manejar rutas de recursos
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
 
 def obtener_ventas():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -34,7 +44,7 @@ def obtener_ventas():
 def obtener_ventas_detalles():
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -64,7 +74,7 @@ def obtener_ventas_detalles():
 def registrar_venta_efectivo(fecha_venta,total_compra,dinero_recibido,cambio_devuelto,productos_distintos,status,id_empleado):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -103,7 +113,7 @@ def registrar_venta_efectivo(fecha_venta,total_compra,dinero_recibido,cambio_dev
 def registrar_venta_credito(fecha_venta,total_compra,dinero_recibido,cambio_devuelto,productos_distintos,status,id_empleado):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -139,7 +149,7 @@ def registrar_venta_credito(fecha_venta,total_compra,dinero_recibido,cambio_devu
 def registrar_detalles_venta(id_venta,id_producto,cantidad,unidad_medida,subtotal):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -173,7 +183,7 @@ def registrar_detalles_venta(id_venta,id_producto,cantidad,unidad_medida,subtota
 def obtener_detalles_venta_id(id_venta):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)
@@ -203,7 +213,7 @@ def obtener_detalles_venta_id(id_venta):
 def obtener_productos(id_venta):
     try:
         # Validar si la ruta del archivo existe
-        ruta_db = "./modelo/punto_venta.db"
+        ruta_db = resource_path(os.path.join("modelo", "punto_venta.db"))
 
         # Conectar a la base de datos
         conexion = sqlite3.connect(ruta_db)

@@ -17,8 +17,19 @@ from vista.pantallas.logica.popup.usuarios.pantalla_editar_usuario import Editar
 from kivy.clock import Clock
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','diseño', 'cortecaja.kv')
+
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño', 'cortecaja.kv'))
 Builder.load_file(kv_path)
 
 class CorteCajaScreen(Screen):
@@ -26,7 +37,7 @@ class CorteCajaScreen(Screen):
     size_hint_x_menssage = NumericProperty(0)
     size_hint_y_menssage = NumericProperty(0)
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def on_enter(self):
@@ -396,3 +407,7 @@ class CorteCajaScreen(Screen):
     def redirect_clientes(self, *args):
         app = App.get_running_app()
         app.root.current = 'clientes'
+        
+    def redirect_Estadisticas(self, *args):
+        app = App.get_running_app()
+        app.root.current = 'Estadisticas'

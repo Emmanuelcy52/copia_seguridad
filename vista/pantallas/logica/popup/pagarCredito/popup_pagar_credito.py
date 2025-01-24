@@ -9,8 +9,18 @@ from control.datos.datos import sesion
 from control.BDconsultas.creditos.CRUD import pagar_credito,registrar_pago
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
+import sys
 
-kv_path = os.path.join(os.path.dirname(__file__), '..','..','..','diseño','popup','pagarCredito','pagar_credito.kv')
+# Función para obtener la ruta correcta según el entorno
+def resource_path(relative_path):
+    """Obtiene la ruta del recurso, compatible con PyInstaller y desarrollo."""
+    if hasattr(sys, '_MEIPASS'):
+        # Si se ejecuta como un ejecutable, busca en la carpeta temporal
+        return os.path.join(sys._MEIPASS, relative_path)
+    # Si se ejecuta como script, busca en el sistema de archivos normal
+    return os.path.join(os.path.abspath("."), relative_path)
+
+kv_path = resource_path(os.path.join('vista', 'pantallas', 'diseño','popup','pagarCredito','pagar_credito.kv'))
 Builder.load_file(kv_path)
 
 class PagarCreditoScreen(Screen):
@@ -19,7 +29,7 @@ class PagarCreditoScreen(Screen):
     size_hint_y_menssage = NumericProperty(0)
     # Define la ruta a las imágenes como una propiedad
     ruta_imagenes = StringProperty(
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..','..','..', 'diseño', 'imagenes', 'icons'))
+        resource_path(os.path.join('vista', 'pantallas', 'diseño', 'imagenes', 'icons'))
     )
     
     def __init__(self,deuda, **kwargs,):
@@ -47,7 +57,6 @@ class PagarCreditoScreen(Screen):
                 return
             else:
                 monto = float(monto)
-                print(monto)
             if monto <= 0:
                 self.ids.message.text = "El monto debe ser mayor a cero."
                 self.ids.message.color = (1, 0, 0, 1)  # Color rojo
@@ -57,7 +66,6 @@ class PagarCreditoScreen(Screen):
                 Clock.schedule_once(self.cerrarmensaje, 3)
                 return
             if monto > saldo_pendiente:
-                print(monto , saldo_pendiente)
                 self.ids.message.text = "El monto no puede ser mayor al saldo pendiente."
                 self.ids.message.color = (1, 0, 0, 1)  # Color rojo
                 self.height_message = 10
